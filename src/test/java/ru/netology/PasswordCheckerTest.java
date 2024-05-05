@@ -22,34 +22,25 @@ class PasswordCheckerTest {
             "000000, false"
     })
 
-    public void parameterizedTest1(String password, boolean expected) {
+    public void testParameterizedTestTrue(String password, boolean expected) {
         passwordChecker.setMinLenght(3);
         passwordChecker.setMaxRepeats(2);
         boolean result = passwordChecker.verify(password);
         Assertions.assertEquals(expected, result);
     }
 
-    @Test
-    void setMinLenght() {
 
-        passwordChecker.setMinLenght(5);
-        Throwable exception = Assertions.assertThrows(
-                IllegalArgumentException.class, () -> {
-                    throw new IllegalArgumentException("Минимальное число не должно быть отрицательным");
-                });
-        Assertions.assertEquals("Минимальное число не должно быть отрицательным", exception.getMessage());
+    @Test
+    void testPasswordSetMinLenght() {
+        passwordChecker.setMinLenght(10);
+        Assertions.assertEquals(10, passwordChecker.minLenght);
+
 
     }
 
     @Test
-    void setMaxRepeats() {
-
-        Assertions.assertTimeout(
-                Duration.ofSeconds(2),
-                () -> {
-
-                    Thread.sleep(1000);
-                }
-        );
+    void testPasswordSetMaxRepeats() {
+        passwordChecker.setMaxRepeats(5);
+        Assertions.assertNotEquals(3, passwordChecker.maxRepeats);
     }
 }
